@@ -1,16 +1,50 @@
-#cuerpo{background-color: darkgrey;}
+#cuerpo{}
 
-.container {
-    display: flex;
+#cabecera{ padding: 10px; background-image: url("../imagenes/Untitled.svg")}
+
+#tablero{
+
+    margin-top: 50px;
+    margin-left: 100px;
+    width: 400px;
+    height:400px;
+    border: 3px solid black ;
+    cellspacing:2;
+    cellpadding:2 ;
+    bgcolor:#000000;
+
+}
+
+.columna{
+   background-color: #d3d3d3;
+    border: 3px solid black
+}
+
+.fila{
+   align: center;
+
+    border: 3px solid black
+}
+
+#botones{
+    margin-left: 50%;
+    align: center;
     background-color: white;
-    border: 2px solid black;
-}
-
-.row{
-
-    width: 50px;
+    border: 0px solid white;
 
 }
-.col{
+
+.imagen{
+
+    width: 30px;
+    height: 30px;
+    align: center;
 
 }
+
+#derecha{ transform: rotate(90deg);}
+#izquierda{ transform: rotate(360deg);}
+#abajo{ transform: rotate(-360deg);}
+
+#div1{align: left;}
+#div1{align:right;}
