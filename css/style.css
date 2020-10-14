@@ -38,7 +38,7 @@
 
     width: 30px;
     height: 30px;
-    align: center;
+    align:center;
 
 }
 
@@ -46,5 +46,7 @@
 #izquierda{ transform: rotate(360deg);}
 #abajo{ transform: rotate(-360deg);}
 
-#div1{align: left;}
-#div1{align:right;}
+.boton{
+    align: center;
+
+}
