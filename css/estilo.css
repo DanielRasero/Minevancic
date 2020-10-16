@@ -1,0 +1,44 @@
+
+#cabecera{ padding: 10px; background-image: url("../imagenes/Untitled.svg")}
+
+#inferior{
+
+    background-image: url("../imagenes/3127.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 150px;
+    width: 1370px;
+    height: 600px;
+}
+#botones{
+    margin-left: 215px;
+    background-color: white;
+    border: 0px solid white;
+
+}
+
+
+.imagen{
+
+    width: 30px;
+    height: 30px;
+    align:center;
+
+}
+
+#derecha{ transform: rotate(90deg);}
+#izquierda{ transform: rotate(360deg);}
+#abajo{ transform: rotate(-360deg);}
+
+.boton{
+    align: center;
+
+}
+
+#tablero{
+
+    margin-left: 100px;
+    width: 400px;
+    height: 200px;
+
+}
