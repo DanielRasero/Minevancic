@@ -2,9 +2,6 @@ var matriz= [[],[],[],[],[],[]];
 var localizador= document.getElementById("tablero");
 var nivel = 1;
 
-
-
-
 for (let i = 0; i < matriz.length; i++) {
 
     for (let j = 0; j < 7; j++) {
@@ -32,7 +29,7 @@ for (let i = 0; i < matriz.length; i++) {
             }
 
         }else{
-            fila+="<div class='col'>&#11036</div>";
+            fila+="<div class='col'>&#10068;</div>";
         }
 
     }
@@ -40,99 +37,165 @@ for (let i = 0; i < matriz.length; i++) {
     localizador.innerHTML+=fila;
 }
 
+
 function bombasAlea(contador) {
 
-    var filaRan= Math.floor((Math.random() * 6));
-    var colRan= Math.floor((Math.random() * 7));
+    var colocar= Math.round((Math.random() * 1));
     var bombas= 0;
-    console.log(filaRan);
-    console.log(colRan);
-
 
     for (let i = 0; i < matriz.length; i++) {
         for (let j = 0; j < matriz[i].length; j++) {
 
-            if(matriz[i][j]==true){
+            colocar=Math.round((Math.random() * 1));
 
+            if(colocar==1 && bombas<contador){
+
+                matriz[i][j]= true;
                 bombas+=1;
             }
 
+
+            if(bombas==contador){
+                break;
+            }
+            //con esto controlamos los bordes y esquinas
+            //esquina superior izquierda
+            if(i==0 && j==0){
+
+                if ((matriz[i+1][j]== true || matriz[i][j+1]== true) && colocar==1){
+
+                     matriz[i][j]=false;
+                     bombas-=1;
+                }
+
+            //esquina superior derecha
+            }else if((i==0 && j==6)){
+
+                if(matriz[i][j]== true){
+
+                    matriz[i][j]=false;
+                    bombas-=1;
+                }
+
+            //esquina inferior derecha
+            }else if((i==5 && j==6)){
+
+                if ((matriz[i-1][j]== true || matriz[i][j-1]== true) && colocar==1){
+
+                    matriz[i][j]=false;
+                    bombas-=1;
+                }
+
+            //esquina inferior izquierda
+            }else if((i==5 && j==0)){
+
+                if(matriz[i][j]== true){
+
+                    matriz[i][j]=false;
+                    bombas-=1;
+                }
+
+            //controlamos laterales izquierdos (sin esquinas izquierdas)
+            }else if((j==0)){
+
+                if ((matriz[i+1][j]== true|| matriz[i-1][j]== true || matriz[i][j+1]== true)  && colocar==1){
+
+                    matriz[i][j]=false;
+                    bombas-=1;
+                }
+
+            //controlamos laterales superiores
+            }else if((i==0) && colocar==1){
+
+                if (matriz[i+1][j]== true|| matriz[i][j-1]== true || matriz[i][j+1]== true){
+
+                    matriz[i][j]=false;
+                    bombas-=1;
+                }
+
+
+             //controlamos laterales derechos (sin esquinas derechas)
+            }else if((j==5) && colocar==1){
+
+            if (matriz[i-1][j]== true|| matriz[i+1][j]== true || matriz[i][j-1]== true){
+
+                matriz[i][j]=false;
+                bombas-=1;
+            }
+
+            //controlamos laterales inferiores
+            }else if((i==5) && colocar==1){
+
+                if (matriz[i-1][j]== true|| matriz[i][j-1]== true || matriz[i][j+1]== true ){
+
+                    matriz[i][j]=false;
+                    bombas-=1;
+                }
+
+            /*controlamos las demás casillas */
+            }else {
+
+                if (colocar == 1) {
+
+                if ((matriz[i - 1][j] == true || matriz[i][j - 1] == true || matriz[i][j + 1] == true || matriz[i + 1][j] == true)) {
+
+                    matriz[i][j] = false;
+                    bombas -= 1;
+                }
+                }
+            }
+
+
+            //controlamos que la entrada y la salida no estén rodeadas de bombas
+            if((i==1 && j==6) && matriz[0][5]==true && colocar==1){
+
+                matriz[i][j]==false;
+            }
+
+            if((i==5 && j==1) && matriz[4][0]==true && colocar==1){
+
+                matriz[i][j]==false;
+            }
         }
-    }
-
-    if(bombas==0){
-
-        matriz [filaRan][colRan]=true;
-
-    }else{
-
-
-
-    if((filaRan== 0 && colRan!= 6)|| (filaRan== 5 && colRan!= 0 ) ){
-
-        if(filaRan==0 || filaRan==5 || colRan==0 || colRan== 6) {
-
-
-        }else if (matriz[filaRan-1][colRan]!= true && matriz[filaRan+1][colRan]!= true &&
-                matriz[filaRan][colRan+1]!= true &&  matriz[filaRan][colRan-1]!= true){
-
-                if((matriz[4][0]!= true && (filaRan== 5 && colRan== 1)) || (matriz[5][1]!= true && (filaRan==4 && colRan== 0))
-                (matriz[0][5]!= true && (filaRan== 1 && colRan== 6)) || (matriz[1][6]!= true && (filaRan==0 && colRan== 5))){
-
-                    matriz [filaRan][colRan]=true;
-                }else{ contador-=1;}
-            }else{ contador-=1;}
-
-    }else{ contador-=1;}
 
     }
+
 }
 
 switch (nivel){
 
     case 1:
 
-        for (let i = 0; i < 10; i++) {
+            bombasAlea(5);
 
-            bombasAlea(i);
-
-        }
         break;
 
     case 2:
 
-        for (let i = 0; i < 15; i++) {
+            bombasAlea(7);
 
-            bombasAlea(i);
 
-        }
         break;
 
     case 3:
 
-        for (let i = 0; i < 20; i++) {
+            bombasAlea(9);
 
-            bombasAlea(i);
 
-        }
         break;
 
     case 4:
 
-        for (let i = 0; i < 25; i++) {
+            bombasAlea(12);
 
-            bombasAlea(i);
 
-        }
         break;
 
     case 5:
 
-        for (let i = 0; i < 30; i++) {
+            bombasAlea(15);
 
-            bombasAlea(i);
 
-        }
         break;
 
 }
