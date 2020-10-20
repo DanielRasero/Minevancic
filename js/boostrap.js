@@ -1,11 +1,13 @@
 var matriz= [[],[],[],[],[],[]];
 var localizador= document.getElementById("tablero");
 var nivel = 1;
-var obj= document.getElementById(rover.y+'|'+rover.x);
+
 var rover= {
     x: 5,
     y:0
 }
+
+
 
 for (let i = 0; i < matriz.length; i++) {
 
@@ -22,19 +24,19 @@ for (let i = 0; i < matriz.length; i++) {
     for (let j = 0; j < matriz[i].length; j++) {
 
         if (i==0 && j==6){
-            fila+="<div id=i+'|'+j class='col'>&#128999</div>";
+            fila+="<div id=i+'id'+j class='col'>&#128999</div>";
         }else if (i==5 && j==0){
 
             if(matriz[5][2]===true || matriz[3][0]===true){
-                fila+="<div id=i+'|'+j class='col'>&#129000</div>";
+                fila+="<div id=i+'id'+j class='col'>&#129000</div>";
             }else if (matriz[5][1]===true || matriz[4][0]===true){
-                fila+="<div id=i+'|'+j class='col'>&#128997</div>";
+                fila+="<div id=i+'id'+j class='col'>&#128997</div>";
             }else{
-                fila+="<div id=i+'|'+j class='col'>&#129001</div>";
+                fila+="<div id=i+'id'+j class='col'>&#129001</div>";
             }
 
         }else{
-            fila+="<div id=i+'|'+j class='col'>&#10068;</div>";
+            fila+="<div id=i+'id'+j class='col'>&#10068;</div>";
         }
 
     }
@@ -207,7 +209,7 @@ switch (nivel){
 
 function pintar() {
 
-
+    var obj= document.getElementById(rover.x+'id'+rover.y);
     //esquina superior izquierda
     if(rover.x==0 && rover.y==0){
 
