@@ -1,6 +1,7 @@
 var matriz= [[],[],[],[],[],[]];
 var localizador= document.getElementById("tablero");
 var nivel = 1;
+var obj= document.getElementById(rover.y+'|'+rover.x);
 var rover= {
     x: 5,
     y:0
@@ -206,7 +207,7 @@ switch (nivel){
 
 function pintar() {
 
-    var obj= document.getElementById(rover.y+'|'+rover.x);
+
     //esquina superior izquierda
     if(rover.x==0 && rover.y==0){
 
@@ -337,4 +338,41 @@ function pintar() {
         }
 
     }
+}
+
+function perder(){
+
+    if (matriz[rover.y][rover.x]==true){
+
+        alert("GAME OVER")
+
+    }
+
+}
+function moverIzq(){
+
+    if(rover.x!=0){ rover.x-=1;}
+    pintar();
+    perder();
+}
+
+function moverDer(){
+
+    if(rover.x!=6){ rover.x+=1;}
+    pintar();
+    perder()
+}
+
+function moverArr(){
+
+    if(rover.y!=0){ rover.y-=1;}
+    pintar();
+    perder();
+}
+
+function moverAbj(){
+
+    if(rover.y!=5){ rover.y+=1;}
+    pintar();
+    perder();
 }
