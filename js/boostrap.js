@@ -1,6 +1,10 @@
 var matriz= [[],[],[],[],[],[]];
 var localizador= document.getElementById("tablero");
 var nivel = 1;
+var rover= {
+    x: 5,
+    y:0
+}
 
 for (let i = 0; i < matriz.length; i++) {
 
@@ -17,19 +21,19 @@ for (let i = 0; i < matriz.length; i++) {
     for (let j = 0; j < matriz[i].length; j++) {
 
         if (i==0 && j==6){
-            fila+="<div class='col'>&#128999</div>";
+            fila+="<div id=i+'|'+j class='col'>&#128999</div>";
         }else if (i==5 && j==0){
 
             if(matriz[5][2]===true || matriz[3][0]===true){
-                fila+="<div class='col'>&#129000</div>";
+                fila+="<div id=i+'|'+j class='col'>&#129000</div>";
             }else if (matriz[5][1]===true || matriz[4][0]===true){
-                fila+="<div class='col'>&#128997</div>";
+                fila+="<div id=i+'|'+j class='col'>&#128997</div>";
             }else{
-                fila+="<div class='col'>&#129001</div>";
+                fila+="<div id=i+'|'+j class='col'>&#129001</div>";
             }
 
         }else{
-            fila+="<div class='col'>&#10068;</div>";
+            fila+="<div id=i+'|'+j class='col'>&#10068;</div>";
         }
 
     }
@@ -198,4 +202,139 @@ switch (nivel){
 
         break;
 
+}
+
+function pintar() {
+
+    var obj= document.getElementById(rover.y+'|'+rover.x);
+    //esquina superior izquierda
+    if(rover.x==0 && rover.y==0){
+
+        //para el color amarillo
+        if (matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
+
+            obj.innerHTML="&#128993;";
+        }
+
+        //para el color rojo
+        else if (matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
+
+            obj.innerHTML="&#128308;";
+
+        //para el color verde
+        }else{
+
+            obj.innerHTML="&#128994;";
+
+        }
+
+        //esquina inferior derecha
+    }else if((rover.y==5 && rover.x==6)){
+
+        //amarillo
+        if (matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
+
+            obj.innerHTML="&#128993;";
+
+        //rojo
+        }else if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
+
+            obj.innerHTML="&#128308;";
+        //verde
+        }else{
+
+            obj.innerHTML="&#128994;";
+        }
+
+     //controlamos la casilla de salida
+    }else if((rover.y==5 && rover.x==0)) {
+
+        //amarillo
+        if (matriz[rover.y-2][rover.x]==true || matriz[rover.y][rover.x+2]== true) {
+
+            obj.innerHTML="&#128993;";
+        //rojo
+        }else if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
+
+            obj.innerHTML="&#128308;";
+        //verde
+        }else{
+
+            obj.innerHTML="&#128994;";
+        }
+
+     //controlamos laterales izquierdos (sin esquinas izquierdas)
+    }else if((rover.x==0)){
+
+        if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
+
+            obj.innerHTML="&#128993;";
+        }else if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
+
+            obj.innerHTML="&#128308;";
+        }else{
+
+        obj.innerHTML="&#128994;";
+        }
+
+    //controlamos laterales superiores
+    }else if(rover.y==0){
+
+        if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true){
+
+            obj.innerHTML="&#128993;";
+        }else if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true){
+
+            obj.innerHTML="&#128308;";
+        }else{
+
+            obj.innerHTML="&#128994;";
+        }
+
+
+        //controlamos laterales derechos (sin esquinas derechas)
+    }else if(matriz.x==5){
+
+        if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
+
+            obj.innerHTML="&#128993;";
+        }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
+
+            obj.innerHTML="&#128308;";
+        }else{
+
+            obj.innerHTML="&#128994;";
+        }
+
+        //controlamos laterales inferiores
+    }else if(rover.y==5){
+
+        if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
+
+            obj.innerHTML="&#128993;";
+        }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true ){
+
+            obj.innerHTML="&#128308;";
+        }else{
+
+            obj.innerHTML="&#128994;";
+        }
+
+        /*controlamos las demás casillas */
+    }else {
+
+        if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
+
+            obj.innerHTML="&#128993;";
+        }else if ((matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+         matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true)) {
+
+         obj.innerHTML="&#128308;";
+
+        }else{
+
+            obj.innerHTML="&#128994;";
+        }
+
+    }
 }
