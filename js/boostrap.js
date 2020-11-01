@@ -24,19 +24,19 @@ for (let i = 0; i < matriz.length; i++) {
     for (let j = 0; j < matriz[i].length; j++) {
 
         if (i==0 && j==6){
-            fila+="<div id=i+'id'+j class='col'>&#128999</div>";
+            fila+="<div id=i+'-'+j class='col'>&#128999</div>";
         }else if (i==5 && j==0){
 
             if(matriz[5][2]===true || matriz[3][0]===true){
-                fila+="<div id=i+'id'+j class='col'>&#129000</div>";
+                fila+="<div id=i+'-'+j class='col'>&#129000</div>";
             }else if (matriz[5][1]===true || matriz[4][0]===true){
-                fila+="<div id=i+'id'+j class='col'>&#128997</div>";
+                fila+="<div id=i+'-'+j class='col'>&#128997</div>";
             }else{
-                fila+="<div id=i+'id'+j class='col'>&#129001</div>";
+                fila+="<div id=i+'-'+j class='col'>&#129001</div>";
             }
 
         }else{
-            fila+="<div id=i+'id'+j class='col'>&#10068;</div>";
+            fila+="<div id=i+'-'+j class='col'>&#10068;</div>";
         }
 
     }
@@ -209,25 +209,26 @@ switch (nivel){
 
 function pintar() {
 
-    var obj= document.getElementById(rover.x+'id'+rover.y);
+    var obj= document.getElementById(rover.x+'-'+rover.y);
     //esquina superior izquierda
     if(rover.x==0 && rover.y==0){
 
         //para el color amarillo
         if (matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
 
-            obj.innerHTML="&#128993;";
+
+            obj.style.backgroundColor= "yellow";
         }
 
         //para el color rojo
         else if (matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
 
         //para el color verde
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
 
         }
 
@@ -237,16 +238,16 @@ function pintar() {
         //amarillo
         if (matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
 
         //rojo
         }else if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
         //verde
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
      //controlamos la casilla de salida
@@ -255,15 +256,15 @@ function pintar() {
         //amarillo
         if (matriz[rover.y-2][rover.x]==true || matriz[rover.y][rover.x+2]== true) {
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
         //rojo
         }else if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
         //verde
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
      //controlamos laterales izquierdos (sin esquinas izquierdas)
@@ -271,13 +272,13 @@ function pintar() {
 
         if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
         }else if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
         }else{
 
-        obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
     //controlamos laterales superiores
@@ -285,13 +286,13 @@ function pintar() {
 
         if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true){
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
         }else if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
 
@@ -300,13 +301,13 @@ function pintar() {
 
         if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
         }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
         //controlamos laterales inferiores
@@ -314,13 +315,13 @@ function pintar() {
 
         if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
         }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true ){
 
-            obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
         /*controlamos las demás casillas */
@@ -328,15 +329,15 @@ function pintar() {
 
         if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
 
-            obj.innerHTML="&#128993;";
+            obj.style.backgroundColor= "yellow";
         }else if ((matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
          matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true)) {
 
-         obj.innerHTML="&#128308;";
+            obj.style.backgroundColor= "red";
 
         }else{
 
-            obj.innerHTML="&#128994;";
+            obj.style.backgroundColor= "green";
         }
 
     }
@@ -362,19 +363,12 @@ function moverDer(){
 
     if(rover.x!=6){ rover.x+=1;}
     pintar();
-    perder()
+    perder();
 }
 
 function moverArr(){
 
     if(rover.y!=0){ rover.y-=1;}
-    pintar();
-    perder();
-}
-
-function moverAbj(){
-
-    if(rover.y!=5){ rover.y+=1;}
     pintar();
     perder();
 }
