@@ -3,8 +3,8 @@ var localizador= document.getElementById("tablero");
 var nivel = 1;
 
 var rover= {
-    x: 5,
-    y:0
+    x: 0,
+    y:5
 }
 
 
@@ -17,32 +17,79 @@ for (let i = 0; i < matriz.length; i++) {
     }
 }
 
-for (let i = 0; i < matriz.length; i++) {
+function play() {
 
-    let fila="<div class='row'>";
+    rover.x=0;
+    rover.y=5;
 
-    for (let j = 0; j < matriz[i].length; j++) {
+    for (let i = 0; i < matriz.length; i++) {
 
-        if (i==0 && j==6){
-            fila+="<div id=i+'-'+j class='col'>&#128999</div>";
-        }else if (i==5 && j==0){
+        let fila="<div class='row'>";
 
-            if(matriz[5][2]===true || matriz[3][0]===true){
-                fila+="<div id=i+'-'+j class='col'>&#129000</div>";
-            }else if (matriz[5][1]===true || matriz[4][0]===true){
-                fila+="<div id=i+'-'+j class='col'>&#128997</div>";
+        for (let j = 0; j < matriz[i].length; j++) {
+
+            if (i==0 && j==6){
+                fila+="<div id="+i+"-"+j+" class='col'>&#128999</div>";
+            }else if (i==5 && j==0){
+
+                if(matriz[5][2]===true || matriz[3][0]===true){
+                    fila+="<div id="+i+"-"+j+" class='col'>&#129000</div>";
+                }else if (matriz[5][1]===true || matriz[4][0]===true){
+                    fila+="<div id="+i+"-"+j+" class='col'>&#128997</div>";
+                }else{
+                    fila+="<div id="+i+"-"+j+" class='col'>&#129001</div>";
+                }
+
             }else{
-                fila+="<div id=i+'-'+j class='col'>&#129001</div>";
+                fila+="<div id="+i+"-"+j+" class='col'>&#10068;</div>";
             }
 
-        }else{
-            fila+="<div id=i+'-'+j class='col'>&#10068;</div>";
         }
+        fila+="</div>";
+        localizador.innerHTML+=fila;
+    }
+
+    switch (nivel){
+
+        case 1:
+
+            bombasAlea(5);
+
+            break;
+
+        case 2:
+
+            bombasAlea(7);
+
+
+            break;
+
+        case 3:
+
+            bombasAlea(9);
+
+
+            break;
+
+        case 4:
+
+            bombasAlea(12);
+
+
+            break;
+
+        case 5:
+
+            bombasAlea(15);
+
+
+            break;
 
     }
-    fila+="</div>";
-    localizador.innerHTML+=fila;
+
 }
+
+
 
 
 function bombasAlea(contador) {
@@ -169,61 +216,24 @@ function bombasAlea(contador) {
 
 }
 
-switch (nivel){
-
-    case 1:
-
-            bombasAlea(5);
-
-        break;
-
-    case 2:
-
-            bombasAlea(7);
-
-
-        break;
-
-    case 3:
-
-            bombasAlea(9);
-
-
-        break;
-
-    case 4:
-
-            bombasAlea(12);
-
-
-        break;
-
-    case 5:
-
-            bombasAlea(15);
-
-
-        break;
-
-}
 
 function pintar() {
 
-    var obj= document.getElementById(rover.x+'-'+rover.y);
+    var obj= document.getElementById(rover.y+'-'+rover.x);
     //esquina superior izquierda
     if(rover.x==0 && rover.y==0){
 
+        //para el color rojo
+        if (matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
+
+            obj.style.backgroundColor= "red";
+        }
+
         //para el color amarillo
-        if (matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
+        else if (matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
 
 
             obj.style.backgroundColor= "yellow";
-        }
-
-        //para el color rojo
-        else if (matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
-
-            obj.style.backgroundColor= "red";
 
         //para el color verde
         }else{
@@ -235,15 +245,15 @@ function pintar() {
         //esquina inferior derecha
     }else if((rover.y==5 && rover.x==6)){
 
-        //amarillo
-        if (matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
-
-            obj.style.backgroundColor= "yellow";
-
         //rojo
-        }else if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
+      if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
 
             obj.style.backgroundColor= "red";
+
+        //amarillo
+        }else if (matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
+
+          obj.style.backgroundColor= "yellow";
         //verde
         }else{
 
@@ -254,13 +264,13 @@ function pintar() {
     }else if((rover.y==5 && rover.x==0)) {
 
         //amarillo
-        if (matriz[rover.y-2][rover.x]==true || matriz[rover.y][rover.x+2]== true) {
-
-            obj.style.backgroundColor= "yellow";
-        //rojo
-        }else if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
+        if (matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
 
             obj.style.backgroundColor= "red";
+        //rojo
+        }else if (matriz[rover.y-2][rover.x]==true || matriz[rover.y][rover.x+2]== true) {
+
+            obj.style.backgroundColor= "yellow";
         //verde
         }else{
 
@@ -270,75 +280,317 @@ function pintar() {
      //controlamos laterales izquierdos (sin esquinas izquierdas)
     }else if((rover.x==0)){
 
-        if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y-2][rover.x]== true || matriz[rover.y][rover.x+2]== true){
+        if(rover.y== 4){
 
-            obj.style.backgroundColor= "yellow";
-        }else if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y-1][rover.x]== true || matriz[rover.y][rover.x+1]== true){
+            if (matriz[rover.y + 1][rover.x] == true || matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x + 1] == true) {
 
-            obj.style.backgroundColor= "red";
-        }else{
+                obj.style.backgroundColor = "red";
+            } else if (matriz[rover.y - 2][rover.x] == true || matriz[rover.y][rover.x + 2] == true) {
 
-            obj.style.backgroundColor= "green";
+                obj.style.backgroundColor = "yellow";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }if(rover.y== 1){
+
+            if (matriz[rover.y + 1][rover.x] == true || matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x + 1] == true) {
+
+                obj.style.backgroundColor = "red";
+
+            } else if (matriz[rover.y + 2][rover.x] == true || matriz[rover.y][rover.x + 2] == true) {
+
+            obj.style.backgroundColor = "yellow";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }else {
+
+            if (matriz[rover.y + 1][rover.x] == true || matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x + 1] == true) {
+
+                obj.style.backgroundColor = "red";
+
+            } else if (matriz[rover.y + 2][rover.x] == true || matriz[rover.y - 2][rover.x] == true || matriz[rover.y][rover.x + 2] == true) {
+
+            obj.style.backgroundColor = "yellow";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
         }
-
     //controlamos laterales superiores
     }else if(rover.y==0){
 
-        if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true){
+        if(rover.x== 5){
+
+            if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true) {
+
+                obj.style.backgroundColor = "red";
+
+            } else if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y][rover.x-2]== true) {
+
+            obj.style.backgroundColor = "yellow";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }if(rover.x== 1){
+
+            if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true) {
+
+                obj.style.backgroundColor = "red";
+
+            } else if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y][rover.x+2]== true) {
+
+            obj.style.backgroundColor = "yellow";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        } else{
+
+            if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true){
+
+                obj.style.backgroundColor= "red";
+
+            }else  if (matriz[rover.y+2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true){
 
             obj.style.backgroundColor= "yellow";
-        }else if (matriz[rover.y+1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true){
+            }else{
 
-            obj.style.backgroundColor= "red";
-        }else{
+                obj.style.backgroundColor= "green";
+            }
 
-            obj.style.backgroundColor= "green";
         }
+
 
 
         //controlamos laterales derechos (sin esquinas derechas)
     }else if(matriz.x==5){
 
-        if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
+        if(rover.y== 4){
 
-            obj.style.backgroundColor= "yellow";
-        }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
+            if (matriz[rover.y - 2][rover.x] == true || matriz[rover.y][rover.x - 2] == true) {
 
-            obj.style.backgroundColor= "red";
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y + 1][rover.x] == true || matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }if(rover.y== 1){
+
+            if (matriz[rover.y + 2][rover.x] == true || matriz[rover.y][rover.x - 2] == true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y + 1][rover.x] == true || matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
         }else{
 
-            obj.style.backgroundColor= "green";
+            if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y+2][rover.x]== true || matriz[rover.y][rover.x-2]== true){
+
+                obj.style.backgroundColor= "yellow";
+            }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y+1][rover.x]== true || matriz[rover.y][rover.x-1]== true){
+
+                obj.style.backgroundColor= "red";
+            }else{
+
+                obj.style.backgroundColor= "green";
+            }
         }
 
         //controlamos laterales inferiores
     }else if(rover.y==5){
 
-        if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
+        if(rover.x== 5){
 
-            obj.style.backgroundColor= "yellow";
-        }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true ){
+            if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true) {
 
-            obj.style.backgroundColor= "red";
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }if(rover.x== 1){
+
+            if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x+2]== true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
         }else{
 
-            obj.style.backgroundColor= "green";
+            if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
+
+                obj.style.backgroundColor= "yellow";
+            }else if (matriz[rover.y-1][rover.x]== true|| matriz[rover.y][rover.x-1]== true || matriz[rover.y][rover.x+1]== true ){
+
+                obj.style.backgroundColor= "red";
+            }else{
+
+                obj.style.backgroundColor= "green";
+            }
+
         }
 
         /*controlamos las demás casillas */
     }else {
 
-        if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
+        if (rover.y==4 && rover.x== 1){
 
-            obj.style.backgroundColor= "yellow";
-        }else if ((matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
-         matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true)) {
+            if (matriz[rover.y - 2][rover.x] == true || matriz[rover.y][rover.x + 2] == true) {
 
-            obj.style.backgroundColor= "red";
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }else if (rover.y==4 && rover.x== 5){
+
+            if (matriz[rover.y - 2][rover.x] == true || matriz[rover.y][rover.x - 2] == true ) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }else if(rover.y==1 && rover.x== 1){
+
+            if (matriz[rover.y][rover.x + 2] == true || matriz[rover.y][rover.x + 2] == true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }else if(rover.y==1 && rover.x== 5){
+
+            if (matriz[rover.y + 2][rover.x] == true || matriz[rover.y][rover.x - 2] == true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        } else if(rover.y== 4){
+
+            if (matriz[rover.y - 2][rover.x] == true || matriz[rover.y][rover.x - 2] == true || matriz[rover.y][rover.x + 2] == true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        } else if(rover.y== 1){
+
+            if (matriz[rover.y + 2][rover.x] == true || matriz[rover.y][rover.x + 2] == true || matriz[rover.y][rover.x - 2] == true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        }else if(rover.x== 5){
+
+            if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x-2]== true|| matriz[rover.y+2][rover.x]== true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
+
+        } else if(rover.x== 1){
+
+            if (matriz[rover.y-2][rover.x]== true|| matriz[rover.y][rover.x+2]== true|| matriz[rover.y+2][rover.x]== true) {
+
+                obj.style.backgroundColor = "yellow";
+            } else if (matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true) {
+
+                obj.style.backgroundColor = "red";
+            } else {
+
+                obj.style.backgroundColor = "green";
+            }
 
         }else{
 
-            obj.style.backgroundColor= "green";
+
+            if (matriz[rover.y+2][rover.x]== true||matriz[rover.y-2][rover.x]== true||
+                matriz[rover.y][rover.x-2]== true || matriz[rover.y][rover.x+2]== true ){
+
+                obj.style.backgroundColor= "yellow";
+            }else if ((matriz[rover.y - 1][rover.x] == true || matriz[rover.y][rover.x - 1] == true ||
+                matriz[rover.y][rover.x + 1] == true || matriz[rover.y + 1][rover.x] == true)) {
+
+                obj.style.backgroundColor= "red";
+
+            }else{
+
+                obj.style.backgroundColor= "green";
+            }
+
         }
+
 
     }
 }
@@ -352,11 +604,27 @@ function perder(){
     }
 
 }
+
+function subirNivel() {
+
+    if (rover.y== 0 && rover.x== 6  && nivel<10){
+
+        nivel++;
+        play();
+
+    }else if(nivel==10 && rover.y== 0 && rover.x== 6){
+
+        alert("FELICIDADES HAS COMPLETADO EL JUEGO");
+    }
+
+}
 function moverIzq(){
 
     if(rover.x!=0){ rover.x-=1;}
     pintar();
     perder();
+    subirNivel();
+
 }
 
 function moverDer(){
@@ -364,6 +632,7 @@ function moverDer(){
     if(rover.x!=6){ rover.x+=1;}
     pintar();
     perder();
+    subirNivel();
 }
 
 function moverArr(){
@@ -371,4 +640,26 @@ function moverArr(){
     if(rover.y!=0){ rover.y-=1;}
     pintar();
     perder();
+    subirNivel();
+}
+
+function moverAbj(){
+
+    if(rover.y!=5){ rover.y+=1;}
+    pintar();
+    perder();
+    subirNivel();
+}
+
+function time(){
+    cronometro=setInterval(function() {
+        secs--;
+        document.getElementById("tiempo").innerHTML=secs;
+        if (secs==0){
+            clearInterval(cronometro);
+            document.getElementById("tiempo").innerHTML=secs;
+            tablerodom.innerHTML="<h1>HAS PERDIDO</h1>";
+            document.getElementById("controles").style.visibility="hidden";
+        }
+    },1000)
 }

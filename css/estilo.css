@@ -17,6 +17,11 @@
 
 }
 
+#tiempo{
+
+    float: right;
+    margin-right: 5rem;
+}
 
 .imagen{
 
@@ -40,5 +45,9 @@
     margin-left: 100px;
     width: 400px;
     height: 200px;
+
+}
+
+#jugar{
 
 }
