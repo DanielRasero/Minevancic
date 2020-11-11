@@ -602,7 +602,8 @@ function perder(){
 
     if (matriz[rover.y][rover.x]==true){
 
-        alert("GAME OVER")
+        alert("GAME OVER");
+        nivel = 1;
         play();
 
     }
