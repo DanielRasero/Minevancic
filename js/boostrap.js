@@ -19,6 +19,9 @@ for (let i = 0; i < matriz.length; i++) {
 
 function play() {
 
+    var objeto= document.getElementById("tablero");
+    objeto.innerHTML="";
+
     rover.x=0;
     rover.y=5;
 
@@ -600,6 +603,7 @@ function perder(){
     if (matriz[rover.y][rover.x]==true){
 
         alert("GAME OVER")
+        play();
 
     }
 

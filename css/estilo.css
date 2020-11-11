@@ -33,7 +33,7 @@
 
 #derecha{ transform: rotate(90deg);}
 #izquierda{ transform: rotate(360deg);}
-#abajo{ transform: rotate(-360deg);}
+#abj{transform: rotate(-360deg);}
 
 .boton{
     align: center;
